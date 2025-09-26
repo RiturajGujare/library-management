@@ -41,6 +41,6 @@ public class Member {
 
     // active indicates whether the member's account is active or deactivated
     @Column(nullable = false)
-    private boolean active;
+    private Boolean active;
 
 }
