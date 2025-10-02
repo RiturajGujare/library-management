@@ -27,7 +27,7 @@ public interface BookRepository extends JpaRepository<Book, Long>{
     // Check if a book exists by its ISBN
     boolean existsByISBN(String isbn);
 
-    // Find books with titles containing a specific keyword (case insensitive)
-    List<Book> findByTitleContaining(String titlePart);
+    // Find books with titles containing a specific string (case insensitive)
+    List<Book> findByTitleContainingIgnoreCase(String titlePart);
 
 }
