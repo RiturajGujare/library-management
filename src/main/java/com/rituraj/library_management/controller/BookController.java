@@ -17,24 +17,33 @@ import com.rituraj.library_management.service.BookService;
 
 import lombok.RequiredArgsConstructor;
 
+/*
+    * BookController Class
+    * Handles HTTP requests related to Book entity
+ */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/books")
+@RequestMapping("/api/books") // Base URL for all book-related endpoints
 public class BookController {
 
+    // Injecting BookService to handle business logic
     private final BookService bookService;
 
+    // Controller methods to handle HTTP requests
+
+    // Add a new book
     @PostMapping
     public ResponseEntity<Book> addBook(@RequestBody Book book){
         return ResponseEntity.ok(bookService.addBook(book));
     }
     
-
+    // Update an existing book
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book updatedBook){
         return ResponseEntity.ok(bookService.updateBook(id, updatedBook));
     }
 
+    // Get a book by its ID
     @GetMapping("/id/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id){
         return bookService.findBookById(id)
@@ -42,17 +51,20 @@ public class BookController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // Get all books
     @GetMapping
     public ResponseEntity<List<Book>> getAllBooks(){
         return ResponseEntity.ok(bookService.getAllBooks());
     }
 
+    // Delete a book by its ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBookById(@PathVariable Long id){
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
     }
 
+    // Get a book by its ISBN
     @GetMapping("/isbn/{isbn}")
     public ResponseEntity<Book> getBookByISBN(@PathVariable String isbn){
         return bookService.findBookByISBN(isbn)
@@ -60,9 +72,16 @@ public class BookController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // Get books with author name
     @GetMapping("/author/{author}")
     public ResponseEntity<List<Book>> getBookByAuthor(@PathVariable String author){
         return ResponseEntity.ok(bookService.getBookByAuthor(author)); 
                 
+    }
+
+    //Get books with title containing a specific string (case insensitive)
+    @GetMapping("/title/{title}")
+    public ResponseEntity<List<Book>> getBookByTitle(@PathVariable String title){
+        return ResponseEntity.ok(bookService.getBookByTitle(title));
     }
 }
