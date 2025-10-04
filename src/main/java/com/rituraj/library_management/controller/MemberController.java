@@ -1,0 +1,62 @@
+package com.rituraj.library_management.controller;
+
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.rituraj.library_management.model.Member;
+import com.rituraj.library_management.service.MemberService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/members")
+public class MemberController {
+    
+    private final MemberService memberService;
+
+    @PostMapping
+    public ResponseEntity<Member> addMember(@RequestBody Member member){
+        return ResponseEntity.ok(memberService.addMember(member));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Member>> findAllMembers(){
+        return ResponseEntity.ok(memberService.findAllMembers());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Member> updateMember(@PathVariable Long id, @RequestBody Member updatedMember){
+        return ResponseEntity.ok(memberService.updateMember(id, updatedMember));
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Member> findMemberById(@PathVariable Long id){
+        return memberService.findMemberById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Member> findMemberByEmail(@PathVariable String email){
+        return memberService.findMemberByEmail(email)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMember(@PathVariable Long id){
+        memberService.deleteMember(id);
+        return ResponseEntity.noContent().build();
+    }
+}
