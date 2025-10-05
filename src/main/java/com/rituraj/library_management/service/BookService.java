@@ -20,7 +20,7 @@ public interface BookService  {
     Book updateBook(Long id, Book updatedBook);
 
     // Find a book by its ISBN
-    Optional<Book> findBookByISBN(String isbn);
+    Optional<Book> findBookByIsbn(String isbn);
 
     // Find a book by its ID
     Optional<Book> findBookById(Long id);

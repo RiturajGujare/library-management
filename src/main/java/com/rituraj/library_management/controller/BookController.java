@@ -66,8 +66,8 @@ public class BookController {
 
     // Get a book by its ISBN
     @GetMapping("/isbn/{isbn}")
-    public ResponseEntity<Book> getBookByISBN(@PathVariable String isbn){
-        return bookService.findBookByISBN(isbn)
+    public ResponseEntity<Book> getBookByIsbn(@PathVariable String isbn){
+        return bookService.findBookByIsbn(isbn)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

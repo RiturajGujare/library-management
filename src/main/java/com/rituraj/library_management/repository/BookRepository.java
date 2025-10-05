@@ -19,13 +19,13 @@ public interface BookRepository extends JpaRepository<Book, Long>{
     // Custom query methods for Book entity
 
     // Find a book by its ISBN
-    Optional<Book> findByISBN(String isbn);
+    Optional<Book> findByIsbn(String isbn);
 
     // Find books by author name
     List<Book> findByAuthor(String author);
 
     // Check if a book exists by its ISBN
-    boolean existsByISBN(String isbn);
+    boolean existsByIsbn(String isbn);
 
     // Find books with titles containing a specific string (case insensitive)
     List<Book> findByTitleContainingIgnoreCase(String titlePart);

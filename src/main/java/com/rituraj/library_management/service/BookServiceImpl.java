@@ -34,7 +34,7 @@ public class BookServiceImpl implements BookService{
     public Book addBook(Book book){
 
         // Check if a book with the same ISBN already exists
-        if(bookRepository.existsByISBN(book.getIsbn())){
+        if(bookRepository.existsByIsbn(book.getIsbn())){
             throw new IllegalArgumentException("Book with ISBN already exists " + book.getIsbn());
         }
 
@@ -49,7 +49,7 @@ public class BookServiceImpl implements BookService{
         // Find the existing book by ID and update its details
         return bookRepository.findById(id).map(
             existingBook -> {
-                if(bookRepository.existsByISBN(updatedBook.getIsbn()) && !existingBook.getIsbn().equals(updatedBook.getIsbn())){
+                if(bookRepository.existsByIsbn(updatedBook.getIsbn()) && !existingBook.getIsbn().equals(updatedBook.getIsbn())){
                     throw new IllegalArgumentException("Book with ISBN already exists " + updatedBook.getIsbn());
                 }
                 existingBook.setAuthor(updatedBook.getAuthor());
@@ -66,8 +66,8 @@ public class BookServiceImpl implements BookService{
 
     // Find a book by its ISBN
     @Override
-    public Optional<Book> findBookByISBN(String isbn){
-        return bookRepository.findByISBN(isbn);
+    public Optional<Book> findBookByIsbn(String isbn){
+        return bookRepository.findByIsbn(isbn);
     }
 
 
