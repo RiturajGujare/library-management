@@ -2,6 +2,8 @@ package com.rituraj.library_management.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity   // This annotation specifies that the class is an entity and is mapped to a database table
 @Table(name = "books")    // This annotation specifies the name of the database table to be used for mapping
 @Data  // This annotation generates getters, setters, toString, equals, and hashCode methods
