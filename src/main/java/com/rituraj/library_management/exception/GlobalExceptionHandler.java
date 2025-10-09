@@ -25,4 +25,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleBookNotFound(BookNotFoundException ex){
         return buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(DuplicateIsbnException.class)
+    public ResponseEntity<Map<String, Object>> duplicateIsbn(DuplicateIsbnException ex){
+        return buildResponse(ex.getMessage(), HttpStatus.CONFLICT);
+    }
 }
