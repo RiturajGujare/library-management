@@ -11,14 +11,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private ResponseEntity<Map<String, Object>> buildResponse(String message, HttpStatus status) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("timestamp", LocalDate.now());
+        error.put("message", message);
+        error.put("status", status.value());
+
+        return new ResponseEntity<>(error, status);
+    }
     
     @ExceptionHandler(BookNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleBookNotFound(BookNotFoundException ex){
-        Map<String, Object> error = new HashMap<>();
-        error.put("timestamp", LocalDate.now());
-        error.put("message", ex.getMessage());
-        error.put("status", HttpStatus.NOT_FOUND.value());
-
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
