@@ -27,7 +27,17 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(DuplicateIsbnException.class)
-    public ResponseEntity<Map<String, Object>> duplicateIsbn(DuplicateIsbnException ex){
+    public ResponseEntity<Map<String, Object>> handleduplicateIsbn(DuplicateIsbnException ex){
         return buildResponse(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(MemberNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleMemberNotFound(MemberNotFoundException ex){
+        return buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IssueRecordNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleIssueRecordNotFound(IssueRecordNotFoundException ex){
+        return buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
